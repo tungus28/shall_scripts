@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ `ls /run/ | grep nginx.pid` ]
+  then
+    service nginx stop > /dev/null && service apache2 start > /dev/null
+    echo -e "\n *\n * Apache2 is started\n *\n"
+  else 
+    service apache2 stop > /dev/null && service nginx start
+    echo -e "\n *\n * Nginx is started\n *\n"
+fi
+      
