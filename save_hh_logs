@@ -1,0 +1,9 @@
+#!/bin/bash
+
+LOGGING_DATE_PATH_PART=$(date -d yesterday +\%Y/\%m/\%d)
+HADOOP_DATE_PATH_PART=$(date -d yesterday +year=\%Y/month=\%m/day=\%d)
+
+ls /logging/java/${LOGGING_DATE_PATH_PART}/hh-banner-sync/banner-versions*.log | while read source_filename; do
+dest_filename=$(basename "$source_filename")
+/usr/bin/rsync --no-relative --no-implied-dirs --bwlimit=12288 ${source_filename} rsync://hadoop2.hhnet.ru/hdfs-raw/banner-versions/${HADOOP_DATE_PATH_PART}/${dest_filename};
+done
